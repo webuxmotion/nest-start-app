@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+env:
+  ECS_CLUSTER: helloworldcluster
+  ECS_SERVICE: helloworldservice
+
 jobs:
   deploy:
     name: Deploy
