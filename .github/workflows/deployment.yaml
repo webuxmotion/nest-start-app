@@ -31,3 +31,11 @@ jobs:
           docker build -t helloworldrepository:$IMAGE_TAG .
           docker tag helloworldrepository:$IMAGE_TAG ${{ secrets.AWS_ECR }}/helloworldrepository:$IMAGE_TAG
           docker push ${{ secrets.AWS_ECR }}/helloworldrepository:$IMAGE_TAG
+          echo "::set-output name=image::${{ secrets.AWS_ECR }}/helloworldrepository:$IMAGE_TAG"
+      - name: Download task definition
+        run: |
+          aws ecs describe-task-definition --task-definition helloworldtask \
+          --query taskDefinition > task-definition.json
+        
+      - name: Read task-definition.json
+        run: cat task-definition.json
